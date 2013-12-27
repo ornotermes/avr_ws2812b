@@ -15,34 +15,6 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <avr/io.h>
-#include <avr/delay.h>
-#include "ws2812.h"
-
-uint8_t state = 0;
-
-int main(void)
-{
-	//--- Set clock speed ---//
-	//Set full speed (disables CKDIV8 by registers)
-	CLKPR = (1<<CLKPCE);
-	CLKPR = 0;
-
-	DDRB = 1;	
-	
-	while(1)
-	{
-		for(char i = 0; i<60; i++)
-		{
-			if (i==state) WS2812Set(i, i*4,0,255-(4*i));
-			else WS2812Set(i, 0,0,0);
-		}
-		WS2812Send();
-		_delay_ms(10);
-		state++;
-		if (state==60) state=0;		
-	}
-}
 #ifndef WS2812_h
 #define WS2812_h
 
