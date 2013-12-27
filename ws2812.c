@@ -18,6 +18,11 @@
 #ifndef WS2812_c
 #define WS2812_c
 
+void WS2812Setup()
+{
+WS2812_DDR |= WS2812_MASK;	
+}
+
 void WS2812Set(uint16_t led, uint8_t red, uint8_t green, uint8_t blue)
 {
 	WS2812Buffer[led*3] = green;

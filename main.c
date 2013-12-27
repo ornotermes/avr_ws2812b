@@ -28,7 +28,7 @@ int main(void)
 	CLKPR = (1<<CLKPCE);
 	CLKPR = 0;
 
-	DDRB = 1;	
+	WS2812Setup();
 	
 	while(1)
 	{
