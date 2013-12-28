@@ -25,10 +25,12 @@
 #define WS2812_PORT		PORTC
 #define WS2812_DDR		DDRC
 #define WS2812_MASK		(1<<PC7)
+#define WS2812_SAVE		2			/*Power saver, divide light level with this.*/
 #define nop() __asm__ __volatile__ ("nop")
 uint8_t WS2812Buffer[(WS2812_COUNT * 3)];
 
 void WS2812Setup(void);
+void WS2812Clear(void);
 void WS2812Set(uint16_t led, uint8_t red, uint8_t green, uint8_t blue);
 void WS2812Send(void);
 

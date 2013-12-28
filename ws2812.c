@@ -23,11 +23,16 @@ void WS2812Setup()
 WS2812_DDR |= WS2812_MASK;	
 }
 
+void WS2812Clear()
+{
+	for(int i = 0; i < WS2812_COUNT; i++) WS2812Buffer[i] = 0;
+}
+
 void WS2812Set(uint16_t led, uint8_t red, uint8_t green, uint8_t blue)
 {
-	WS2812Buffer[led*3] = green;
-	WS2812Buffer[1+led*3] = red;
-	WS2812Buffer[2+led*3] = blue;
+	WS2812Buffer[led*3] = green / WS2812_SAVE;
+	WS2812Buffer[1+led*3] = red / WS2812_SAVE;
+	WS2812Buffer[2+led*3] = blue / WS2812_SAVE;
 }
 
 void WS2812Send()
