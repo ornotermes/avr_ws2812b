@@ -152,6 +152,51 @@ int main(void)
 				_delay_ms(10);
 			}
 			break;
+		case 5:;
+			for(char j = 0; j<2; j++)
+			{
+				for(char i = 0; i<WS2812_COUNT; i++)
+				{
+					WS2812SetRGB(i, 0, 255, 0);
+				}
+				WS2812Send();
+				_delay_ms(5);
+				WS2812Clear();
+				WS2812Send();
+				_delay_ms(75);
+			}
+			_delay_ms(250);
+			break;
+		case 6:;
+			for(char j = 0; j < 4; j++)
+			{
+				WS2812Clear();
+				for(char i = 0; i<WS2812_COUNT/2; i++)
+				{
+					if (i%4 == j)
+					{
+						WS2812SetRGB(i, 255, 127, 0);
+						WS2812SetRGB(WS2812_COUNT - i -1, 255, 127, 0);
+					}
+				}
+				WS2812Send();
+				_delay_ms(50);
+			}
+			break;
+		case 7:;
+			for(char j = 0; j<2; j++)
+			{
+				for(char i = 0; i<WS2812_COUNT; i++)
+				{
+					WS2812SetRGB(i, 255, 255, 255);
+				}
+				WS2812Send();
+				_delay_ms(1);
+				WS2812Clear();
+				WS2812Send();
+				_delay_ms(50);
+			}
+			break;
 		default:;
 			effect = 0;
 		}
@@ -173,13 +218,14 @@ int main(void)
 ISR(INT7_vect)
 {
 	uint8_t longpress = 0;
-	while( (BTN_PIN & BTN) )
+	while( !(BTN_PIN & BTN) )
 	{
 		_delay_ms(10);
 		if(longpress < 200)longpress++;
 		else
 		{
 			autoeffect = !autoeffect;
+			return;
 		}
 	}
 	if (longpress < 200) effect++;
