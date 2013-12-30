@@ -221,13 +221,13 @@ ISR(INT7_vect)
 	while( !(BTN_PIN & BTN) )
 	{
 		_delay_ms(10);
-		if(longpress < 200)longpress++;
+		if(longpress < 100)longpress++;
 		else
 		{
 			autoeffect = !autoeffect;
 			return;
 		}
 	}
-	if (longpress < 200) effect++;
+	effect++;
 	
 }
